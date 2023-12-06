@@ -40,7 +40,13 @@ RFdiffusion is an open source method for structure generation, with or without c
     - [A note on `diffuser.T`](#a-note-on-diffusert)
     - [Partial diffusion](#partial-diffusion)
     - [Binder Design](#binder-design)
-    - [Practical Considerations for Binder Design](#practical-considerations-for-binder-design)
+  - [Practical Considerations for Binder Design](#practical-considerations-for-binder-design)
+    - [Selecting a Target Site](#selecting-a-target-site)
+    - [Truncating your Target Protein](#truncating-your-target-protein)
+    - [Picking Hotspots](#picking-hotspots)
+    - [Binder Design Scale](#binder-design-scale)
+    - [Sequence Design for Binders](#sequence-design-for-binders)
+    - [Binder Design Filtering](#binder-design-filtering)
     - [Fold Conditioning](#fold-conditioning)
     - [Generation of Symmetric Oligomers](#generation-of-symmetric-oligomers)
     - [Using Auxiliary Potentials](#using-auxiliary-potentials)
@@ -94,6 +100,8 @@ You also need to install [NVIDIA's implementation of SE(3)-Transformers](https:/
 conda env create -f env/SE3nv.yml
 
 conda activate SE3nv
+pip install dgl -f https://data.dgl.ai/wheels/repo.html
+
 cd env/SE3Transformer
 pip install --no-cache-dir -r requirements.txt
 python setup.py install

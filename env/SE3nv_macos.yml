@@ -1,0 +1,14 @@
+name: RFdiffusion
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python>=3.9
+  - pytorch>=1.9, <2.0
+  - torchaudio
+  - torchvision
+  - pip
+  - pip:
+    - hydra-core
+    - pyrsistent
