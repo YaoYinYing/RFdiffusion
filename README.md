@@ -97,11 +97,18 @@ Ensure that you have either [Anaconda or Miniconda](https://conda.io/projects/co
 You also need to install [NVIDIA's implementation of SE(3)-Transformers](https://developer.nvidia.com/blog/accelerating-se3-transformers-training-using-an-nvidia-open-source-model-implementation/) Here is how to install the NVIDIA SE(3)-Transformer code:
 
 ```
-conda env create -f env/SE3nv.yml
+# macos apple silicon specialized env w/o CUDA
+conda env create -f env/SE3nv_macos.yml
 
 conda activate SE3nv
 pip install dgl -f https://data.dgl.ai/wheels/repo.html
 
+# install NVTX
+git clone https://github.com/NVIDIA/NVTX
+cp -r NVTX/c/include/nvtx3 $CONDA_PREFIX/include/
+pip install nvtx
+
+# install this version of SE3Transformer with minor changes
 cd env/SE3Transformer
 pip install --no-cache-dir -r requirements.txt
 python setup.py install
