@@ -99,10 +99,10 @@ You also need to install [NVIDIA's implementation of SE(3)-Transformers](https:/
 ```
 # macos apple silicon specialized env w/o CUDA
 conda env create -f env/SE3nv_macos.yml
-# Pytorch with cpuonly
-conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
 
 conda activate RFdiffusion
+# Pytorch with cpuonly
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
 pip install dgl -f https://data.dgl.ai/wheels/repo.html
 
 # install NVTX
