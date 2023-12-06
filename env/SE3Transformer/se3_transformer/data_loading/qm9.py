@@ -157,7 +157,7 @@ class CachedBasesQM9EdgeDataset(QM9EdgeDataset):
                              disable=get_local_rank() != 0):
             rel_pos = _get_relative_pos(graph)
             # Compute the bases with the GPU but convert the result to CPU to store in RAM
-            bases.append({k: v.cpu() for k, v in get_basis(rel_pos.cuda(), **self.bases_kwargs).items()})
+            bases.append({k: v.cpu() for k, v in get_basis(rel_pos.cpu(), **self.bases_kwargs).items()})
         self.bases = bases  # Assign at the end so that __getitem__ isn't confused
 
     def __getitem__(self, idx: int):
