@@ -105,9 +105,8 @@ conda activate RFdiffusion
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
 pip install dgl -f https://data.dgl.ai/wheels/repo.html
 
-# install NVTX
-git clone https://github.com/NVIDIA/NVTX
-cp -r NVTX/c/include/nvtx3 $CONDA_PREFIX/include/
+# install NVTX C headers, then real NVTX Python-binding
+pip install git+https://github.com/YaoYinYing/nvtx-mock --force-reinstall
 pip install nvtx
 
 # install this version of SE3Transformer with minor changes
