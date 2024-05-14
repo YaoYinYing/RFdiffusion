@@ -109,16 +109,16 @@ pip install dgl -f https://data.dgl.ai/wheels/repo.html
 pip install git+https://github.com/YaoYinYing/nvtx-mock --force-reinstall
 pip install nvtx
 
-# install this version of SE3Transformer with minor changes
-cd env/SE3Transformer
-pip install --no-cache-dir -r requirements.txt
-python setup.py install
-cd ../.. # change into the root directory of the repository
+# install this version of SE3Transformer with cuda mocked out
+pip install git+https://github.com/YaoYinYing/SE3Transformer
+pip install git+https://github.com/NVIDIA/dllogger#egg=dllogger
+
 pip install -e . # install the rfdiffusion module from the root of the repository
+pip install pydantic
 ```
 Anytime you run diffusion you should be sure to activate this conda environment by running the following command:
 ```
-conda activate SE3nv
+conda activate RFdiffusion
 ```
 Total setup should take less than 30 minutes on a standard desktop computer.
 Note: Due to the variation in GPU types and drivers that users have access to, we are not able to make one environment that will run on all setups. As such, we are only providing a yml file with support for CUDA 11.1 and leaving it to each user to customize it to work on their setups. This customization will involve changing the cudatoolkit and (possibly) the PyTorch version specified in the yml file.
