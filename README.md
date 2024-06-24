@@ -102,8 +102,8 @@ conda env create -f env/SE3nv_macos.yml
 
 conda activate RFdiffusion
 # Pytorch with cpuonly
-conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
-pip install dgl -f https://data.dgl.ai/wheels/repo.html
+conda install 'pytorch==2.3.0' torchvision torchaudio cpuonly -c pytorch
+pip install 'dgl==2.2.1' -f https://data.dgl.ai/wheels/repo.html
 
 # install NVTX C headers, then real NVTX Python-binding
 pip install git+https://github.com/YaoYinYing/nvtx-mock --force-reinstall
