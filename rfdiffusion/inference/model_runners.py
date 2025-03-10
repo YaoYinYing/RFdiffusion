@@ -49,6 +49,8 @@ class Sampler:
         self._log = logging.getLogger(__name__)
         if torch.cuda.is_available():
             self.device = torch.device('cuda')
+        elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+            self.device = torch.device('mps')
         else:
             self.device = torch.device('cpu')
         needs_model_reload = not self.initialized or conf.inference.ckpt_override_path != self._conf.inference.ckpt_override_path
