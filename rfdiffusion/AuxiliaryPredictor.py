@@ -62,6 +62,7 @@ class LDDTNetwork(nn.Module):
         nn.init.zeros_(self.proj.bias)
 
     def forward(self, x):
+        x=x.to('mps')
         logits = self.proj(x) # (B, L, 50)
 
         return logits.permute(0,2,1)

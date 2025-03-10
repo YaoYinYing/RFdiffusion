@@ -52,6 +52,8 @@ class MSAPairStr2MSA(nn.Module):
         '''
         B, N, L = msa.shape[:3]
 
+        state=state.to('mps')
+
         # prepare input bias feature by combining pair & coordinate info
         pair = self.norm_pair(pair)
         pair = torch.cat((pair, rbf_feat), dim=-1)
@@ -186,6 +188,8 @@ class SCPred(nn.Module):
         Outputs:
             - si: predicted torsion angles (phi, psi, omega, chi1~4 with cos/sin, Cb bend, Cb twist, CG) (B, L, 10, 2)
         '''
+        seq=seq.to('mps')
+        state=state.to('mps')
         B, L = seq.shape[:2]
         seq = self.norm_s0(seq)
         state = self.norm_si(state)
@@ -239,6 +243,8 @@ class Str2Str(nn.Module):
 
         if motif_mask is None:
             motif_mask = torch.zeros(L).bool()
+
+        state=state.to('mps')
         
         # process msa & pair features
         node = self.norm_msa(msa[:,0])
@@ -256,9 +262,9 @@ class Str2Str(nn.Module):
         
         # define graph
         if top_k != 0:
-            G, edge_feats = make_topk_graph(xyz[:,:,1,:], pair, idx, top_k=top_k)
+            G, edge_feats = make_topk_graph(xyz.to('cpu')[:,:,1,:], pair.to('cpu'), idx.to('cpu'), top_k=top_k)
         else:
-            G, edge_feats = make_full_graph(xyz[:,:,1,:], pair, idx, top_k=top_k)
+            G, edge_feats = make_full_graph(xyz.to('cpu')[:,:,1,:], pair.to('cpu'), idx.to('cpu'), top_k=top_k)
         l1_feats = xyz - xyz[:,:,1,:].unsqueeze(2)
         l1_feats = l1_feats.reshape(B*L, -1, 3)
         
@@ -288,7 +294,7 @@ class Str2Str(nn.Module):
         delRi[:,:,2,2] = qA*qA-qB*qB-qC*qC+qD*qD
 
         Ri = einsum('bnij,bnjk->bnik', delRi, R_in)
-        Ti = delTi + T_in #einsum('bnij,bnj->bni', delRi, T_in) + delTi
+        Ti = delTi.to('mps') + T_in.to('mps') #einsum('bnij,bnj->bni', delRi, T_in) + delTi
             
         alpha = self.sc_predictor(msa[:,0], state)
         return Ri, Ti, state, alpha
@@ -448,6 +454,7 @@ class IterativeSimulator(nn.Module):
             R_s.append(R_in)
             T_s.append(T_in)
             alpha_s.append(alpha)
+        state=state.to('mps')
        
         state = self.proj_state2(state)
         for i_m in range(self.n_ref_block):
