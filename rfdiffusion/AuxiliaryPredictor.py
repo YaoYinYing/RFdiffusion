@@ -64,6 +64,7 @@ class LDDTNetwork(nn.Module):
     def forward(self, x):
         x=x.to('mps')
         logits = self.proj(x) # (B, L, 50)
+        torch.mps.empty_cache()
 
         return logits.permute(0,2,1)
 

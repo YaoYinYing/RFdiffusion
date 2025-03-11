@@ -68,7 +68,7 @@ class MSAPairStr2MSA(nn.Module):
         msa = msa + self.drop_row(self.row_attn(msa, pair))
         msa = msa + self.col_attn(msa)
         msa = msa + self.ff(msa)
-
+        torch.mps.empty_cache()
         return msa
 
 class PairStr2Pair(nn.Module):
@@ -199,6 +199,7 @@ class SCPred(nn.Module):
         si = si + self.linear_4(F.relu_(self.linear_3(F.relu_(si))))
 
         si = self.linear_out(F.relu_(si))
+        torch.mps.empty_cache()
         return si.view(B, L, 10, 2)
 
 
@@ -297,6 +298,8 @@ class Str2Str(nn.Module):
         Ti = delTi.to('mps') + T_in.to('mps') #einsum('bnij,bnj->bni', delRi, T_in) + delTi
             
         alpha = self.sc_predictor(msa[:,0], state)
+
+        torch.mps.empty_cache()
         return Ri, Ti, state, alpha
 
 class IterBlock(nn.Module):
