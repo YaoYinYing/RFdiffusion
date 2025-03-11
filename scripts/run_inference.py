@@ -42,10 +42,11 @@ def main(conf: HydraConfig) -> None:
         make_deterministic()
 
     # Check for available GPU and print result of check
-    if torch.cuda.is_available():
-        device_name = torch.cuda.get_device_name(torch.cuda.current_device())
+    if torch.backends.mps.is_available() and torch.backends.mps.is_built():
+        device_name = 'mps'
         log.info(f"Found GPU with device_name {device_name}. Will run RFdiffusion on {device_name}")
     else:
+        device_name = "cpu"
         log.info("////////////////////////////////////////////////")
         log.info("///// NO GPU DETECTED! Falling back to CPU /////")
         log.info("////////////////////////////////////////////////")
