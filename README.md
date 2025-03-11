@@ -90,7 +90,10 @@ wget http://files.ipd.uw.edu/pub/RFdiffusion/1befcb9b28e2f778f53d47f18b7597fa/RF
 ```
 
 
-### Conda Install SE3-Transformer
+### Conda Install SE3-Transformer and RFdiffusion
+
+> [!CAUTION]
+> If you are looking for MPS-supported branch on Mac with Apple Silicon chip, see [this](https://github.com/YaoYinYing/RFdiffusion/tree/mps-test).
 
 Ensure that you have either [Anaconda or Miniconda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) installed.
 
