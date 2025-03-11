@@ -109,11 +109,12 @@ pip install 'dgl==2.2.1' -f https://data.dgl.ai/wheels/repo.html
 pip install git+https://github.com/YaoYinYing/nvtx-mock --force-reinstall
 pip install nvtx
 
-# install this version of SE3Transformer with cuda mocked out
-pip install git+https://github.com/YaoYinYing/SE3Transformer
+# install this version of SE3Transformer with cuda mocked out and MPS enabled
+pip install git+https://github.com/YaoYinYing/SE3Transformer@rfdiffusion-mps-test
 pip install git+https://github.com/NVIDIA/dllogger#egg=dllogger
 
-pip install -e . # install the rfdiffusion module from the root of the repository
+# install the rfdiffusion with MPS enabled
+pip install git+https://github.com/YaoYinYing/RFdiffusion@mps-test 
 pip install pydantic
 ```
 Anytime you run diffusion you should be sure to activate this conda environment by running the following command:
