@@ -18,7 +18,7 @@ jobs:
       - name: Install PyTorch CPU
         run: |
           python -m pip install --upgrade pip
-          pip install torch==2.3.0 torchvision==2.3.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cpu --no-cache-dir
 
       - name: Install NVTX mock bindings
         run: |
